@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatbot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+					body {
+			background-image: url("https://wallpapercave.com/wp/wp10299402.png");
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			backdrop-filter: brightness(120%);
+			}
+			
+		/* Style the chat window */
+		.chat-window {
+			background-color: #f5f5f5;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			height: 450px;
+			margin: 0 auto;
+			padding: 10px;
+			width: 400px;
+			overflow-y: auto;
+		}
+
+		/* Style the chat messages */
+		.chat-message {
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			margin-bottom: 10px;
+			padding: 10px;
+		}
+
+		/* Style the input field */
+		.chat-input {
+			width: 30%;
+			height: 50px;
+			margin-top: 10px;
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-sizing: border-box;
+		}
+
+		/* Style the submit button */
+		.chat-submit {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 50px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 20px;
+			margin-top: 10px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		button {
+		    margin: 0 5px;
+		    padding: 0px;
+		    font-size: 16px;
+		    color: #fff;
+		    background-color: #007bff;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		}
+
+		button:hover {
+		    background-color: #0069d9;
+		}
+	</style>
+</head>
+<body onload="displayQuestion()">
+  <!-- The chat window -->
+  <div class="chat-window" id="chat-window">
+    <!-- Messages will be inserted here dynamically -->
+  </div>
+
+  <!-- The input form -->
+  <form onsubmit="return submitForm();">
+    <center><input type="text" class="chat-input" id="chat-input" placeholder="Type your message here..."><br>
+    <input type="submit" class="chat-submit" value="Send"></center>
+    <!--<button onclick="window.location.href='/redirect'">Speak</button></center>-->
+
+
+  </form>
+
+  <!-- JavaScript code -->
+  <script>
+
+	// Function to display the initial question
+	function displayQuestion() {
+			// Create a new message element for the chatbot's question
+			var question = document.createElement("div");
+			question.classList.add("chat-message");
+			question.innerText = "Chatbot:Hi! welcome to tourism chatbot\nenter which place do you want to visit?";
+
+			// Append the question to the chat window
+			document.getElementById("chat-window").appendChild(question);
+		}
+
+
+    // Function to submit the form
+		function submitForm(user_input) {
+			// Get the user input
+			var user_input = document.getElementById("chat-input").value;
+
+			// Create a new message element
+			var message = document.createElement("div");
+			message.classList.add("chat-message");
+			message.innerText = "You: " + user_input;
+
+			// Append the message to the chat window
+			document.getElementById("chat-window").appendChild(message);
+
+			// Send the user input to the server using AJAX
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "/get?msg=" + user_input, true);
+			xhr.onload = function() {
+				// Create a new message element for the chatbot's response
+				var response = document.createElement("div");
+				response.classList.add("chat-message");
+				response.innerText = "Chatbot: " + xhr.responseText;
+
+				// Append the message to the chat window
+				document.getElementById("chat-window").appendChild(response);
+			};
+			xhr.send();
+			
+			// Clear the input field after submitting the form
+			document.getElementById("chat-input").value = "";
+			
+			// Prevent the form from submitting and reloading the page
+			return false;
+		}
+		
+		// Function to submit the form when the user presses enter
+		document.getElementById("chat-form").addEventListener("submit", function(event) {
+			event.preventDefault();
+			submitForm();
+		});
+
+    
+  </script>
+</body>
+
+</html>
