@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Speech-to-Text and Translation</title>
+    <style>
+        .select{
+            background-color: orange;
+            color:white;
+            margin-right:580px;
+            width: 15 px;
+            height: 20px;
+            margin-top: 5px;
+        }
+    body {
+    background-image: url("https://i.pinimg.com/originals/58/fd/6a/58fd6a0b158cb2a959876c74350b7972.png");
+  background-repeat: no-repeat;
+  background-origin: content-box;
+    }
+    
+    .top{
+        width:850px;
+        height: 100px;
+        background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    }
+    .bottom{
+        width:850px;
+        height: 800px;
+        background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+        box-shadow: 2px 2px 1px;
+    }
+
+        /* Style the submit button */
+        .chat-submit {
+            background-color: white;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            margin: 0 5px;
+            padding: 10px;
+            font-size: 16px;
+            color: black
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0069d9;
+        }
+
+        .select2{
+            margin: 0 3px;
+            padding: 8px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+
+        }
+
+    </style>
+</head>
+<body>
+    <br>
+    <center>
+    <div class = "top">
+        <form action="/process" method="POST">
+        
+            
+            <select name="source_lang" id="source_lang" class="select2" style="color:black;background-color: white
+            ;">
+                <option value="en">English</option>
+<option value="te">తెలుగు</option>
+                <option value="hi">हिंदी</option>
+                <option value="ml">മലയാളം</option>
+                <option value="ta">தமிழ்</option>
+                <option value="es">Spanish</option>
+                <option value="de">German</option>
+                <!-- add more options for other languages -->
+            </select>
+            <button type="submit" class="chat-submit" style="margin-left:500px">Start speaking</button>
+            </form>
+            <form action="/play_audio" method="POST">
+                <button type="submit" class="chat-submit" style="margin-bottom:1000px">Read Response</button>
+            </form>
+    </div>
+<br>
+    <div class="bottom"><h3><p>{{ response_text }}</p></h3></div>
+        
+
+    </center>
+</body>
+</html>
